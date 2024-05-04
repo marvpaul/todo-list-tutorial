@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>TODO-List</title>
+    <meta name="viewport" content="width=device-width" />
+  </head>
+  <body>
+    <div id="todolist">
+      <h1>TODO</h1>
+      <div><input id="new-todo" /><button onclick="addItem()">Add</button></div>
+      <div id="new-items">
+        <div id="new-item">Hello<button>Delete</button></div>
+      </div>
+    </div>
+  </body>
+</html>
+
+<style>
+  #todolist {
+    width: 80vw;
+    text-align: center;
+  }
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    /* Gradient from here: https://cssgradient.io/swatches/ */
+    background: linear-gradient(90deg, #d53369 0%, #daae51 100%);
+  }
+</style>
