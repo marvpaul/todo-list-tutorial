@@ -10,11 +10,28 @@
       <h1>TODO</h1>
       <div><input id="new-todo" /><button onclick="addItem()">Add</button></div>
       <div id="new-items">
-        <div id="new-item">Hello<button>Delete</button></div>
       </div>
     </div>
   </body>
 </html>
+
+<script>
+  function addItem() {
+    let todoValue = document.getElementById("new-todo").value;
+
+    let newItemDiv = document.createElement("div");
+    newItemDiv.class = "new-item";
+    newItemDiv.id = todoValue;
+    newItemDiv.innerHTML = todoValue + "<button onclick=\"deleteItem('" + todoValue + "')\">Delete</button>";
+    
+    var containerDiv = document.getElementById("new-items");
+    containerDiv.appendChild(newItemDiv);
+  }
+
+  function deleteItem(todoValue){
+    document.getElementById("new-items").querySelector('#' + todoValue).remove(); 
+  }
+</script>
 
 <style>
   #todolist {

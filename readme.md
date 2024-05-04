@@ -12,4 +12,4 @@ https://web.dev/learn/html/document-structure
   </body>
 </html>
 
-Add basic html structure and styling 
+1. Add basic html structure and styling 
