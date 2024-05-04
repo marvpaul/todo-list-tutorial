@@ -4,13 +4,17 @@
     <meta charset="utf-8" />
     <title>TODO-List</title>
     <meta name="viewport" content="width=device-width" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
+    />
   </head>
   <body>
-    <div id="todolist">
-      <h1>TODO</h1>
-      <div><input id="new-todo" /><button onclick="addItem()">Add</button></div>
+    <article id="todolist">
+      <header><h1>TODO's</h1></header>
+      <input type="text" name="text" id="new-todo" placeholder="Text" aria-label="Text" /><button onclick="addItem()">Add</button></div>
       <div id="new-items"></div>
-    </div>
+    </article>
   </body>
 </html>
 
@@ -41,11 +45,24 @@
     let newItemDiv = document.createElement("div");
     newItemDiv.className = "new-item";
     newItemDiv.id = todoValue;
-    newItemDiv.innerHTML =
-      todoValue +
-      "<button onclick=\"deleteItem('" +
-      todoValue +
-      "')\">Delete</button>";
+
+    let checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.name = "todo-checkbox";
+    
+    let textDiv = document.createElement("div");
+    textDiv.textContent = todoValue;
+    textDiv.className = "todo-text";
+
+    let deleteButton = document.createElement("button");
+    deleteButton.textContent = "Delete";
+    deleteButton.onclick = function() {
+      deleteItem(todoValue);
+    };
+
+    newItemDiv.appendChild(checkbox);
+    newItemDiv.appendChild(textDiv);
+    newItemDiv.appendChild(deleteButton);
 
     var containerDiv = document.getElementById("new-items");
     containerDiv.appendChild(newItemDiv);
@@ -62,12 +79,18 @@
     saveItemsToStorage(items);
   }
   window.onload = loadItemsFromStorage;
+
+  
 </script>
 
 <style>
+  #new-todo{
+    width: 60%; 
+  }
   #todolist {
     width: 80vw;
     text-align: center;
+    padding: 30px; 
   }
   body {
     display: flex;
@@ -77,4 +100,17 @@
     /* Gradient from here: https://cssgradient.io/swatches/ */
     background: linear-gradient(90deg, #d53369 0%, #daae51 100%);
   }
+
+  .new-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .todo-text {
+    flex: 1; 
+    text-align: left;
+  }
+  
 </style>

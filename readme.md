@@ -15,3 +15,5 @@ https://web.dev/learn/html/document-structure
 1. Add basic html structure and styling 
 2. Add and delete simple 
 3. Local storage
+4. More styling (adding Pico and Fontawesome)
+  https://picocss.com/docs/card
