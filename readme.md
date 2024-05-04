@@ -18,3 +18,4 @@ https://web.dev/learn/html/document-structure
 4. More styling (adding Pico and Fontawesome)
   https://picocss.com/docs/card
 5. Check / uncheck items 
+6. Add notifications 
