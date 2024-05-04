@@ -13,3 +13,5 @@ https://web.dev/learn/html/document-structure
 </html>
 
 1. Add basic html structure and styling 
+2. Add and delete simple 
+3. Local storage

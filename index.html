@@ -9,28 +9,59 @@
     <div id="todolist">
       <h1>TODO</h1>
       <div><input id="new-todo" /><button onclick="addItem()">Add</button></div>
-      <div id="new-items">
-      </div>
+      <div id="new-items"></div>
     </div>
   </body>
 </html>
 
 <script>
-  function addItem() {
-    let todoValue = document.getElementById("new-todo").value;
+  function loadItemsFromStorage() {
+    const storedItems = JSON.parse(localStorage.getItem("todos")) || [];
+    storedItems.forEach((item) => addItemToDOM(item));
+  }
 
+  function saveItemsToStorage(items) {
+    localStorage.setItem("todos", JSON.stringify(items));
+  }
+
+  function addItem() {
+    todoValue = document.getElementById("new-todo").value;
+
+    addItemToDOM(todoValue);
+
+    let items = JSON.parse(localStorage.getItem("todos")) || [];
+    items.push(todoValue);
+    saveItemsToStorage(items);
+
+    document.getElementById("new-todo").value = "";
+  }
+
+  // Function to add item to the DOM
+  function addItemToDOM(todoValue) {
     let newItemDiv = document.createElement("div");
-    newItemDiv.class = "new-item";
+    newItemDiv.className = "new-item";
     newItemDiv.id = todoValue;
-    newItemDiv.innerHTML = todoValue + "<button onclick=\"deleteItem('" + todoValue + "')\">Delete</button>";
-    
+    newItemDiv.innerHTML =
+      todoValue +
+      "<button onclick=\"deleteItem('" +
+      todoValue +
+      "')\">Delete</button>";
+
     var containerDiv = document.getElementById("new-items");
     containerDiv.appendChild(newItemDiv);
   }
 
-  function deleteItem(todoValue){
-    document.getElementById("new-items").querySelector('#' + todoValue).remove(); 
+  function deleteItem(todoValue) {
+    document
+      .getElementById("new-items")
+      .querySelector("#" + todoValue)
+      .remove();
+
+    let items = JSON.parse(localStorage.getItem("todos")) || [];
+    items = items.filter((item) => item !== todoValue);
+    saveItemsToStorage(items);
   }
+  window.onload = loadItemsFromStorage;
 </script>
 
 <style>
