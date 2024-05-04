@@ -29,19 +29,21 @@
   }
 
   function addItem() {
-    todoValue = document.getElementById("new-todo").value;
+    let todoValue = document.getElementById("new-todo").value;
+    let newObject = {name: todoValue, checked: false}; 
 
-    addItemToDOM(todoValue);
+    addItemToDOM(newObject);
 
     let items = JSON.parse(localStorage.getItem("todos")) || [];
-    items.push(todoValue);
+    items.push(newObject);
     saveItemsToStorage(items);
 
     document.getElementById("new-todo").value = "";
   }
 
   // Function to add item to the DOM
-  function addItemToDOM(todoValue) {
+  function addItemToDOM(newObject) {
+    let todoValue = newObject.name; 
     let newItemDiv = document.createElement("div");
     newItemDiv.className = "new-item";
     newItemDiv.id = todoValue;
@@ -49,6 +51,10 @@
     let checkbox = document.createElement("input");
     checkbox.type = "checkbox";
     checkbox.name = "todo-checkbox";
+    checkbox.onclick = function(){
+      selectOrUnselect(todoValue, checkbox.checked); 
+    }
+    checkbox.checked = newObject.checked; 
     
     let textDiv = document.createElement("div");
     textDiv.textContent = todoValue;
@@ -68,6 +74,14 @@
     containerDiv.appendChild(newItemDiv);
   }
 
+  function selectOrUnselect(todoValue, checked){
+    let items = JSON.parse(localStorage.getItem("todos")) || [];
+    items.find(item => item.name == todoValue).checked = checked
+    saveItemsToStorage(items);
+  }
+
+
+
   function deleteItem(todoValue) {
     document
       .getElementById("new-items")
@@ -75,7 +89,7 @@
       .remove();
 
     let items = JSON.parse(localStorage.getItem("todos")) || [];
-    items = items.filter((item) => item !== todoValue);
+    items = items.filter((item) => item.name !== todoValue);
     saveItemsToStorage(items);
   }
   window.onload = loadItemsFromStorage;
